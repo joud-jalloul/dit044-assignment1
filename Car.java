@@ -51,7 +51,7 @@ public abstract class Car implements Movable {
         currentSpeed = 0;
     }
     private void incrementSpeed(double amount) {
-        currentSpeed = getCurrentSpeed() + speedFactor() * amount; //TODO SpeedFactor
+        currentSpeed = ¢getCurrentSpeed() + speedFactor() * amount; //TODO SpeedFactor
     }
     private void decrementSpeed(double amount) {
         currentSpeed = getCurrentSpeed() - speedFactor() * amount; //TODO SpeedFactor

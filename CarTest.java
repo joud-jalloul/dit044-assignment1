@@ -212,6 +212,37 @@ public class CarTest {
             }
             reportResult("Brake rejects negative amount", rejected);
     }
+    // MOMO - Tests that gas() throws an exception for a negative amount.
+    private static void testGasRejectsNegative() {
+            Volvo240 volvo = new Volvo240();
+            boolean rejected = false;
+            try {
+                volvo.gas(-1);
+            } catch(IllegalArgumentException e) {
+                rejected = true;
+            }
+            reportResult("Gas rejects negative amount", rejected);
+    }
+
+    private static void testSpeedDoesNotExceedEnginePower() {
+            Volvo240 volvo = new Volvo240();
+            volvo.startEngine();
+            for (int i = 0; i < 200; i++) {
+                volvo.gas(1);
+            }
+            boolean result = volvo.getCurrentSpeed() <= volvo.getEnginePower();
+            reportResult("Current speed does not exceed enginePower", result);
+    }
+    private static void testSpeedDoesNotDropBelowZero() {
+            Volvo240 volvo = new Volvo240();
+            volvo.startEngine();
+            for (int i = 0; i < 10; i++) {
+                volvo.brake(1);
+            }
+            boolean result = volvo.getCurrentSpeed() >= 0;
+            reportResult("Current speed does not drop below zero", result);
+    }
+
 
     static void main() {
         testTurbo();
@@ -230,5 +261,8 @@ public class CarTest {
         testGasRejectsTooLarge();  // JOUD: Task 4: sanity checks for brake().
         testBrakeRejectsNegative(); // JOUD: Task 4: sanity checks for brake().
         testBrakeRejectsTooLarge(); // JOUD: Task 4: sanity checks for brake().
+        testSpeedDoesNotDropBelowZero(); // MOMO: Task 4: sanity checks for minimum speed.
+        testSpeedDoesNotExceedEnginePower(); // MOMO: Task 4: sanity checks for maximum speed.
+        testGasRejectsNegative(); // MOMO: Task 4: sanity check for gas():
     }
 }
